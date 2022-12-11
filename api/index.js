@@ -22,7 +22,7 @@ app.use(cors());
 app.use(express.json());
 
 // Get request to app root
-app.get("/api", async function (req, res) {
+app.get("/", async function (req, res) {
   // Storing the records from the Visitor table
    res.statusCode = 200;
    res.setHeader("Content-Type", "application/json");
@@ -60,7 +60,7 @@ app.get("/api", async function (req, res) {
   }
 });
 
-app.get("/api/new/:name", async function (req, res) {
+app.get("/new/:name", async function (req, res) {
   const newApp = req.params.name;
   let appName = await Visitor.findOne({ name: newApp });
   if (appName == null) {
