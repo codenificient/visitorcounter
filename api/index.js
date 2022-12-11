@@ -44,7 +44,7 @@ app.get("/api", async function (req, res) {
     res.sendStatus(200).json({ success: true, count: 1 });
 
     // Logging when the app is visited first time
-    console.log("First visitor arrived");
+    console.log("First  portfolio visitor");
   } else {
     // Incrementing the count of visitor by 1
     visitors.count += 1;
