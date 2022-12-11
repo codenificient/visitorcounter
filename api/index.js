@@ -39,7 +39,7 @@ app.get("/api", async function (req, res) {
     beginCount.save();
 
     // Sending thee count of visitor to the browser
-    res.sendStatus(200).json({ success: true, count: 1 });
+    res.status(200).json({ success: true, count: 1 });
 
     // Logging when the app is visited first time
     console.log("First  portfolio visitor");
@@ -51,7 +51,7 @@ app.get("/api", async function (req, res) {
     visitors.save();
 
     // Sending thee count of visitor to the browser
-    res.sendStatus(200).json({ success: true, count: visitors.count });
+    res.status(200).json({ success: true, count: visitors.count });
 
     // Logging the visitor count in the console
     console.log("New visitor arrived: ", visitors.count);
@@ -68,7 +68,7 @@ app.get("/api/new/:name", async function (req, res) {
     });
 
     beginCount.save();
-    res.sendStatus(200).json({ success: true, count: 1 });
+    res.status(200).json({ success: true, count: 1 });
   } else {
     appName.count += 1;
 
@@ -76,7 +76,7 @@ app.get("/api/new/:name", async function (req, res) {
     appName.save();
 
     // Sending thee count of visitor to the browser
-    res.sendStatus(200).json({ success: true, count: appName.count });
+    res.status(200).json({ success: true, count: appName.count });
 
     // Logging the visitor count in the console
     console.log("New visitor arrived: ", appName.count);
