@@ -21,7 +21,7 @@ const Visitor = mongoose.model("Visitor", visitorSchema);
 app.use(cors());
 
 // Get request to app root
-app.get("/", async function (req, res) {
+app.get("/api", async function (req, res) {
   // Storing the records from the Visitor table
 
   let visitors = await Visitor.findOne({ name: "tioyedev" });
@@ -58,7 +58,7 @@ app.get("/", async function (req, res) {
   }
 });
 
-app.get("/new/:name", async function (req, res) {
+app.get("/api/new/:name", async function (req, res) {
   const newApp = req.params.name;
   let appName = await Visitor.findOne({ name: newApp });
   if (appName == null) {
