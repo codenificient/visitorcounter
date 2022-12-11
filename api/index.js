@@ -24,7 +24,7 @@ app.use(express.json());
 // Get request to app root
 app.get("/api", async function (req, res) {
   // Storing the records from the Visitor table
-  res.setHeader("Content-Type", "text/html");
+  res.setHeader("Content-Type", "application/json");
   res.setHeader("Cache-Control", "s-max-age=1, stale-while-revalidate");
   let visitors = await Visitor.findOne({ name: "tioyedev" });
 
@@ -61,7 +61,7 @@ app.get("/api", async function (req, res) {
 });
 
 app.get("/api/new/:name", async function (req, res) {
-  res.setHeader("Content-Type", "text/html");
+  res.setHeader("Content-Type", "application/json");
   res.setHeader("Cache-Control", "s-max-age=1, stale-while-revalidate");
   const newApp = req.params.name;
   let appName = await Visitor.findOne({ name: newApp });
