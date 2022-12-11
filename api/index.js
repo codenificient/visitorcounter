@@ -24,6 +24,8 @@ app.use(express.json());
 // Get request to app root
 app.get("/api", async function (req, res) {
   // Storing the records from the Visitor table
+   res.statusCode = 200;
+   res.setHeader("Content-Type", "application/json");
   let visitors = await Visitor.findOne({ name: "tioyedev" });
 
   // If the app is being visited first
