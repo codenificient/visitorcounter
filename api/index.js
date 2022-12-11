@@ -1,12 +1,12 @@
-const express = require("express");
+const app = require("express")();
 const mongoose = require("mongoose");
 const cors = require("cors");
-require("dotenv").config();
 
-const app = express();
+require("dotenv").config();
 
 const PORT = process.env.PORT || 3001;
 mongoose.set("strictQuery", true);
+
 mongoose.connect(process.env.MONGODB, {
   useNewUrlParser: true,
 });
@@ -19,13 +19,13 @@ const visitorSchema = new mongoose.Schema({
 const Visitor = mongoose.model("Visitor", visitorSchema);
 
 app.use(cors());
-app.use(express.json());
 
 // Get request to app root
 app.get("/", async function (req, res) {
   // Storing the records from the Visitor table
    res.statusCode = 200;
    res.setHeader("Content-Type", "application/json");
+
   let visitors = await Visitor.findOne({ name: "tioyedev" });
 
   // If the app is being visited first
