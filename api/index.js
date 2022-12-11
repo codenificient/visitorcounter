@@ -22,7 +22,7 @@ app.use(cors());
 app.use(express.json());
 
 // Get request to app root
-app.get("/", async function (req, res) {
+app.get("/api", async function (req, res) {
   // Storing the records from the Visitor table
   res.setHeader("Content-Type", "text/html");
   res.setHeader("Cache-Control", "s-max-age=1, stale-while-revalidate");
@@ -60,7 +60,7 @@ app.get("/", async function (req, res) {
   }
 });
 
-app.get("/new/:name", async function (req, res) {
+app.get("/api/new/:name", async function (req, res) {
   res.setHeader("Content-Type", "text/html");
   res.setHeader("Cache-Control", "s-max-age=1, stale-while-revalidate");
   const newApp = req.params.name;
