@@ -24,6 +24,8 @@ app.use(express.json());
 // Get request to app root
 app.get("/", async function (req, res) {
   // Storing the records from the Visitor table
+  res.setHeader("Content-Type", "text/html");
+  res.setHeader("Cache-Control", "s-max-age=1, stale-while-revalidate");
   let visitors = await Visitor.findOne({ name: "tioyedev" });
 
   // If the app is being visited first
@@ -59,6 +61,8 @@ app.get("/", async function (req, res) {
 });
 
 app.get("/new/:name", async function (req, res) {
+  res.setHeader("Content-Type", "text/html");
+  res.setHeader("Cache-Control", "s-max-age=1, stale-while-revalidate");
   const newApp = req.params.name;
   let appName = await Visitor.findOne({ name: newApp });
   if (appName == null) {
