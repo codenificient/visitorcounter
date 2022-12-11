@@ -92,3 +92,5 @@ app.listen(PORT, function (req, res) {
   // Logging when the server has started
   console.log("listening to server " + PORT);
 });
+
+module.exports = app;
