@@ -23,7 +23,6 @@ app.use(cors());
 // Get request to app root
 app.get("/", async function (req, res) {
   // Storing the records from the Visitor table
-   res.statusCode = 200;
 
   let visitors = await Visitor.findOne({ name: "tioyedev" });
 
