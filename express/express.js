@@ -10,7 +10,6 @@ const router = express.Router();
 
 require("dotenv").config();
 
-const PORT = process.env.PORT || 3001;
 
 mongoose.set("strictQuery", true);
 
@@ -60,7 +59,7 @@ router.get("/new/:name", async function (req, res) {
 router.post("/", (req, res) => res.json({ postBody: req.body }));
 
 app.use(bodyParser.json());
-app.use("/.netlify/functions/server", router); // path must route to lambda
+// app.use("/.netlify/functions/server", router); // path must route to lambda
 
 module.exports = app;
 module.exports.handler = serverless(app);
