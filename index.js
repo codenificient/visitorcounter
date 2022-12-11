@@ -7,8 +7,6 @@ const app = express();
 
 const PORT = process.env.PORT || 3001;
 
-console.log(process.env.MONGODB);
-
 mongoose.connect(process.env.MONGODB, {
   useNewUrlParser: true,
 });
@@ -56,7 +54,7 @@ app.get("/", async function (req, res) {
     res.send(visitors.count);
 
     // Logging the visitor count in the console
-    console.log("visitor arrived: ", visitors.count);
+    console.log("New visitor arrived: ", visitors.count);
   }
 });
 
@@ -81,7 +79,7 @@ app.get("/new/:name", async function (req, res) {
     res.send(appName.count);
 
     // Logging the visitor count in the console
-    console.log("visitor arrived: ", appName.count);
+    console.log("New visitor arrived: ", appName.count);
   }
 });
 
