@@ -1,16 +1,10 @@
-"use strict";
-const express = require("express");
-const serverless = require("serverless-http");
-const bodyParser = require("body-parser");
+const app = require("express")();
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-const app = express();
-const router = express.Router();
-
 require("dotenv").config();
 
-
+const PORT = process.env.PORT || 3001;
 mongoose.set("strictQuery", true);
 
 mongoose.connect(process.env.MONGODB, {
@@ -26,13 +20,45 @@ const Visitor = mongoose.model("Visitor", visitorSchema);
 
 app.use(cors());
 
-router.get("/", (req, res) => {
-  res.writeHead(200, { "Content-Type": "text/html" });
-  res.write("<h1>Hello from Express.js!</h1>");
-  res.end();
+// Get request to app root
+app.get("/", async function (req, res) {
+  // Storing the records from the Visitor table
+
+  let visitors = await Visitor.findOne({ name: "tioyedev" });
+
+  // If the app is being visited first
+  // time, so no records
+  if (visitors == null) {
+    // Creating a new default record
+    const beginCount = new Visitor({
+      name: "tioyedev",
+      count: 1,
+    });
+
+    // Saving in the database
+    beginCount.save();
+
+    // Sending thee count of visitor to the browser
+    res.sendStatus(200).json({ success: true, count: 1 });
+
+    // Logging when the app is visited first time
+    console.log("First  portfolio visitor");
+  } else {
+    // Incrementing the count of visitor by 1
+    visitors.count += 1;
+
+    // Saving to the database
+    visitors.save();
+
+    // Sending thee count of visitor to the browser
+    res.sendStatus(200).json({ success: true, count: visitors.count });
+
+    // Logging the visitor count in the console
+    console.log("New visitor arrived: ", visitors.count);
+  }
 });
 
-router.get("/new/:name", async function (req, res) {
+app.get("/new/:name", async function (req, res) {
   const newApp = req.params.name;
   let appName = await Visitor.findOne({ name: newApp });
   if (appName == null) {
@@ -56,10 +82,11 @@ router.get("/new/:name", async function (req, res) {
     console.log("New visitor arrived: ", appName.count);
   }
 });
-router.post("/", (req, res) => res.json({ postBody: req.body }));
 
-app.use(bodyParser.json());
-// app.use("/.netlify/functions/server", router); // path must route to lambda
+// Creating server to listen at localhost 3000
+app.listen(PORT, function (req, res) {
+  // Logging when the server has started
+  console.log("listening to server " + PORT);
+});
 
 module.exports = app;
-module.exports.handler = serverless(app);
